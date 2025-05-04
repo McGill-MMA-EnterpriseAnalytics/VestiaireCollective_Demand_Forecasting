@@ -8,24 +8,8 @@ Join us on this journey to explore the future of sustainable luxury fashion! �
 
 Link to company : https://us.vestiairecollective.com  
 Link to dataset : https://www.kaggle.com/datasets/justinpakzad/vestiaire-fashion-dataset
----
-## 🔍 Unit Testing
-
-The tests/ directory contains unit tests for two key analytical components of the project:
-
-- *Price Elasticity Unit Tests: These tests validate the functionality derived from the *causal analysis notebook focused on price elasticity. The original notebook has been modularized into three Python scripts to separate concerns and simplify testing:
-  - Price_Elasticity_1stPart.py
-  - Price_Elasticity_2ndPart.py
-  - Price_Elasticity_3rdPart.py
-
-- *Seller Analysis Tests: These cover logic and feature engineering from the *seller behavior analysis notebook.
-
-Each test folder includes the relevant scripts and supporting documentation on how to implement and extend the unit testing process.
 
 ## Machine Learning Experiment Tracking with MLflow & Optuna
-
-- sold_train.ipynb
-- train.py
 
 This section of our project implements comprehensive machine learning experiment tracking and hyperparameter optimization using MLflow and Optuna. These powerful tools help us manage our model development lifecycle, compare model performance, and find optimal hyperparameters efficiently.
 
@@ -83,8 +67,8 @@ def objective(trial):
 
 Each trial tests a different set of hyperparameters, and Optuna uses the results to guide the search toward promising areas of the parameter space.
 
-![image](https://github.com/user-attachments/assets/d50acc9d-5c44-4bbb-81c3-e5a998105b7a)
-
+![Optuna Hyperparameter Optimization Visualization]
+<!-- Insert screenshot of Optuna's parameter importance or optimization history -->
 
 ### MLflow Tracking
 
@@ -93,8 +77,9 @@ For each model, we track:
 #### Parameters
 - Model-specific hyperparameters
 - Training configuration
-![image](https://github.com/user-attachments/assets/6312b287-71e7-4016-baa5-b03114d50214)
 
+![MLflow Parameters Visualization]
+<!-- Insert screenshot of MLflow UI showing parameters -->
 
 #### Metrics
 - ROC-AUC score
@@ -104,8 +89,8 @@ For each model, we track:
 - F1 score
 - Log loss
 
-![image](https://github.com/user-attachments/assets/75dee077-6025-4f2b-919f-4cfd1eeab7b2)
-
+![MLflow Metrics Visualization]
+<!-- Insert screenshot of MLflow UI showing metrics -->
 
 #### Artifacts
 1. **Performance Visualizations**
@@ -120,10 +105,8 @@ For each model, we track:
 3. **Sample Predictions**
    - CSV files with sample predictions for validation
 
-![image](https://github.com/user-attachments/assets/42b636ed-39a7-4cba-b782-d1215020522e)
-![image](https://github.com/user-attachments/assets/4e0b2453-cdd9-40e1-9779-1f4096c602a6)
-![image](https://github.com/user-attachments/assets/e3d80cee-9b52-452c-8803-15bdfca17893)
-
+![MLflow Artifacts Visualization]
+<!-- Insert screenshot of MLflow UI showing artifacts -->
 
 ### Key Functions
 
@@ -158,6 +141,9 @@ with mlflow.start_run(run_name="Test_Evaluation", nested=True, parent_run_id=par
         mlflow.log_metrics(metrics)
 ```
 
+![Model Comparison Visualization]
+<!-- Insert screenshot of MLflow UI comparing models -->
+
 ### How to View Experiment Results
 
 1. Start the MLflow UI:
@@ -179,32 +165,8 @@ with mlflow.start_run(run_name="Test_Evaluation", nested=True, parent_run_id=par
 - **Comparison**: Easy comparison between different model types
 - **Documentation**: Automatic logging provides a history of the model development process
 
+### Next Steps
 
----
-
-## AutoML Implementation (Azure)
-
-The `auto-ml/` directory contains a notebook implementing automated machine learning (AutoML) using **Azure Machine Learning**.
-
-- **Notebook**: `AutoML_SoldItems_FINAL.ipynb`
-- **Objective**: Automatically identify the best model and hyperparameters for predicting item demand (i.e., whether an item is sold).
-- **Platform**: [Azure ML](https://azure.microsoft.com/en-us/products/machine-learning/)
-
-### Features:
-- Automated feature preprocessing and scaling
-- Evaluation across multiple algorithms (e.g., LightGBM, XGBoost, Logistic Regression)
-- Selection of the best run based on validation metrics (e.g., AUC, Accuracy)
-- Integrated MLflow tracking for reproducibility
-- Export of the best model pipeline for downstream use
-
-📂 Path:  
-`project_ml_flow copy/auto-ml/AutoML_SoldItems_FINAL.ipynb`
-
-> This serves as a baseline reference to compare custom model performance against Azure's AutoML capabilities.
-
-⚠️ AutoML + MLflow Integration
-Note: We attempted to integrate Azure AutoML with MLflow tracking within the auto-ml module. However, due to Azure ML workspace permission restrictions, we were unable to successfully complete the logging integration.
-
-Despite trying multiple workarounds—including assigning Owner and Contributor roles to different team members across the Azure subscription—the MLflow tracking functionality could not be fully enabled for the AutoML runs. This was primarily due to insufficient access to modify workspace-level diagnostic settings and restricted access to default storage accounts.
-
-As a result, AutoML run artifacts are not automatically logged via MLflow in this implementation. All other model results, metrics, and evaluations are saved locally and documented manually within the notebooks.
+- Deploy the best-performing model
+- Set up continuous monitoring of model performance
+- Implement A/B testing framework to validate models in production
