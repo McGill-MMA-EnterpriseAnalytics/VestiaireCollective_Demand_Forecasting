@@ -9,6 +9,41 @@ Join us on this journey to explore the future of sustainable luxury fashion! �
 Link to company : https://us.vestiairecollective.com  
 Link to dataset : https://www.kaggle.com/datasets/justinpakzad/vestiaire-fashion-dataset
 ---
+## 📁 Project Structure
+
+```text
+project_ml_flow copy/
+├── auto-ml/                   # AutoML experiments and baselines
+├── data/                      # Data ingestion and loading
+│   ├── data_loader.py
+│   └── __init__.py
+├── docs/                      # Documentation and design notes
+├── mlruns/                    # MLflow run tracking (auto-generated)
+├── models/                    # Exported model artifacts
+├── notebooks/                 # EDA and development notebooks
+├── references/                # Research papers, links, external docs
+├── reports/                   # Generated visuals
+├── src/                       # Main application logic and scripts
+│   ├── app.py                 # FastAPI app for serving predictions
+│   ├── train.py               # Model training pipeline
+│   ├── Auto_Selection.py      # Selecting the best model 
+│   ├── config/
+│   │   └── best_run_id.txt    # Reference to best MLflow run
+│   └── elasticity/            # Price elasticity module
+│       ├── Price_Elasticity_1stPart.py
+│       ├── Price_Elasticity_2ndPart.py
+│       ├── Price_Elasticity_3rdPart.py
+│       └── __init__.py
+├── tests/
+│   ├── test_elasticity/
+│   └── test_seller_analysis/
+├── Dockerfile_predicting      # Dockerfile for FastAPI deployment
+├── pyproject.toml             # Poetry dependencies and environment
+├── poetry.lock
+├── ci_pipeline.yml            # GitHub CI config
+└── README.md
+```
+---
 ## 🔍 Unit Testing
 
 The tests/ directory contains unit tests for two key analytical components of the project:
@@ -208,3 +243,33 @@ Note: We attempted to integrate Azure AutoML with MLflow tracking within the aut
 Despite trying multiple workarounds—including assigning Owner and Contributor roles to different team members across the Azure subscription—the MLflow tracking functionality could not be fully enabled for the AutoML runs. This was primarily due to insufficient access to modify workspace-level diagnostic settings and restricted access to default storage accounts.
 
 As a result, AutoML run artifacts are not automatically logged via MLflow in this implementation. All other model results, metrics, and evaluations are saved locally and documented manually within the notebooks.
+
+
+## Dependency Management
+
+This project uses [Poetry](https://python-poetry.org/) for dependency and environment management.
+
+To install all required packages (based on the `pyproject.toml` and locked versions in `poetry.lock`), run:
+
+(bash)
+poetry install
+
+This ensures full reproducibility of the development environment.
+
+To activate the virtual environment:
+
+(bash)
+poetry shell
+
+---
+## Containerized Model Deployment (FastAPI + Docker)
+The trained model is served via a FastAPI app containerized with Docker.
+
+1. Build the Docker Image: (bash) docker build -f Dockerfile_predicting -t vestiaire_predict .
+   
+2. Run the Container: (bash) docker run -p 8000:8000 vestiaire_predict
+   
+3. Access the Swagger UI: http://localhost:8000/docs
+  
+This will load the Swagger interface where you can interact with the /predict endpoint to test predictions.
+
